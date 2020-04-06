@@ -1,0 +1,48 @@
+version: '3'
+
+volumes:
+  database:
+    driver: local
+
+networks:
+  pipebling: {}
+
+services:
+  mongo:
+    networks:
+    - pipebling
+    image: mongo:latest
+    # volumes:
+    # - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+    # - database:/data/db
+    ports:
+    - 27018:27017
+    environment:
+      # MONGO_INITDB_ROOT_DATABASE: pipebling
+      # MONGO_INITDB_ROOT_USERNAME: pipebling
+      # MONGO_INITDB_ROOT_PASSWORD: pipebling
+      MONGO_DATABASE: pipebling
+      MONGO_USERNAME: ''
+      MONGO_PASSWORD: ''
+    command: mongod --smallfiles --logpath=/dev/null
+
+  node:
+    depends_on:
+    - mongo
+    networks:
+    - pipebling
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./:/srv/app
+    environment:
+      DB_CONNECTION: local
+      DB_DATABASE: pipebling
+      DB_HOST: 127.0.0.1
+      DB_PORT: 27017
+      DB_USERNAME: ''
+      DB_PASSWORD: ''
+    ports:
+    - "8077:8080"
+    command: sh -c "npm install & node server.js"
