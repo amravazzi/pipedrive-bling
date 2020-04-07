@@ -1,36 +1,26 @@
 version: '3'
 
-volumes:
-  database:
-    driver: local
-
 networks:
-  pipebling: {}
+  cheapestpath: {}
 
 services:
-  mongo:
-    networks:
-    - pipebling
-    image: mongo:latest
-    # volumes:
-    # - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
-    # - database:/data/db
-    ports:
-    - 27018:27017
+  db:
+    image: mysql:8
     environment:
-      # MONGO_INITDB_ROOT_DATABASE: pipebling
-      # MONGO_INITDB_ROOT_USERNAME: pipebling
-      # MONGO_INITDB_ROOT_PASSWORD: pipebling
-      MONGO_DATABASE: pipebling
-      MONGO_USERNAME: ''
-      MONGO_PASSWORD: ''
-    command: mongod --smallfiles --logpath=/dev/null
+      MYSQL_DATABASE: 'cheapestpath'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
 
   node:
     depends_on:
-    - mongo
+    - db
     networks:
-    - pipebling
+    - cheapestpath
     build:
       context: .
       dockerfile: Dockerfile
@@ -38,11 +28,11 @@ services:
     - ./:/srv/app
     environment:
       DB_CONNECTION: local
-      DB_DATABASE: pipebling
+      DB_DATABASE: cheapestpath
       DB_HOST: 127.0.0.1
-      DB_PORT: 27017
-      DB_USERNAME: ''
-      DB_PASSWORD: ''
+      DB_PORT: 3306
+      DB_USERNAME: 'user'
+      DB_PASSWORD: 'password'
     ports:
-    - "8077:8080"
-    command: sh -c "npm install & node server.js"
+    - '8077:8080'
+    command: sh -c "npm install && npm run dev"
