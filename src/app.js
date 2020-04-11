@@ -14,9 +14,12 @@ app.use('/v1', routes);
 
 //Catch 404 Erros
 app.use((req, res, next) => {
-  const err = new Error('Not found');
-  err.statusCode = 404;
-  next(err);
+  res
+  .status(404)
+  .send({
+    success: false,
+    message: 'Resource not found.'
+  });
 });
 
 //Error handle
@@ -24,14 +27,14 @@ app.use((err, req, res, next) => {
   const error = app.get('env') === 'development' ? err : {};
   const status = err.statusCode || 500;
 
-  //respond to client
-  res.status(status).json({
-    error: {
-      message: error.message
-    }
+  res
+  .status(status)
+  .send({
+    success: false,
+    message: 'Resource not found.',
+    data: err
   });
 
-  //respond to terminal
   console.error(err);
 });
 

@@ -1,13 +1,16 @@
-import QuoteModel from '../models/Quote';
+import Quote from '../models/Quote';
 import Controller from './Controller';
 
 class QuoteController extends Controller {
 	constructor() {
-    super(QuoteModel);
+    super(Quote);
   }
 
-	quote(req, res, next) {
-    let response = { message: `Hello World from Quotes.quote: from ${req.params.from} to ${req.params.to}` };
+	async quote(req, res, next) {
+    const q = new Quote();
+    const show = await q.show(5);
+
+    let response = { message: `Hello World from Quotes.quote: from ${show[0].departure}` };
     res.status(200).json(response);
 	}
 
