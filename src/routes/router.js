@@ -1,13 +1,10 @@
-import express from 'express';
-const router = express.Router()
+import { Router } from 'express';
+import QuoteController from '../controllers/QuoteController';
 
-// define the home page route
-router.get('/', function (req, res) {
-  res.send('Birds home page')
-})
-// define the about route
-router.get('/about', function (req, res) {
-  res.send('About birds')
-})
+const router = Router();
+const quoteController = new QuoteController();
+
+router.get('/quote/:from/:to', quoteController.quote);
+router.post('/quote', quoteController.create);
 
 export default router;
