@@ -20,9 +20,10 @@
   "homepage": "https://github.com/amravazzi/cheapest-path#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "db-migrate": "^0.11.6",
+    "db-migrate-mysql": "^2.1.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "express-promise-router": "^3.0.3",
     "knex": "^0.20.13",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2"
