@@ -6,10 +6,10 @@ WORKDIR /srv/app
 # Install app dependencies
 COPY package*.json ./
 
-RUN npm install
+RUN yarn
 
 # Bundle app source
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+CMD [ "yarn", "dev" ]
