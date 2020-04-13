@@ -3,7 +3,9 @@ const knex = require('knex')(database[process.env.NODE_ENV])
 
 class Model {
 	constructor(table) {
-    Model.prototype.db = knex(table)
+    // Here we use 'prototype' so the property
+    // is available to the children
+    Model.prototype.db = knex(table).where('status', 'active');
 	}
 }
 

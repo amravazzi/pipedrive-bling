@@ -5,8 +5,16 @@ class Quote extends Model {
 		super('quotes');
 	}
 
-  show(id) {
-    return super.db.where('id', id)
+  create({ from, to, price }) {
+    return super.db.insert({ departure: from, arrival: to, value: price });
+  }
+
+  showByDeparture(from) {
+  	return super.db.where('departure', from).orderBy('value', 'asc');
+  }
+
+  showByArrival(to) {
+  	return super.db.where('arrival', to).orderBy('value', 'asc');
   }
 }
 
