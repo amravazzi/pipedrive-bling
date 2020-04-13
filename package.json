@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "start": "node -r esm src/app.js",
-    "dev": "nodemon -r esm src/app.js"
+    "dev": "nodemon -r esm src/app.js",
+    "migrate_up": "knex migrate:rollback --knexfile=src/config/knexfile.js --env=dev && knex migrate:latest --knexfile=src/config/knexfile.js --env=dev && knex seed:run --knexfile=src/config/knexfile.js --env=dev"
   },
   "repository": {
     "type": "git",
@@ -20,12 +21,11 @@
   "homepage": "https://github.com/amravazzi/cheapest-path#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "db-migrate": "^0.11.6",
-    "db-migrate-mysql": "^2.1.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "knex": "^0.20.13",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "validatorjs": "^3.18.1"
   }
 }
