@@ -6,8 +6,8 @@ class CreateQuoteValidation {
   validate(req, res, next) {
 
     const rule = {
-      "from": "required|string",
-      "to": "required|string",
+      "from": "required|string|min:3",
+      "to": "required|string|min:3",
       "price": "required|numeric"
     }
 
