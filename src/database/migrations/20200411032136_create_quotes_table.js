@@ -6,7 +6,7 @@ exports.up = function(knex) {
        table.string('departure', 255).notNullable();
        table.string('arrival', 255).notNullable();
        table.integer('value', 11).notNullable();
-       table.string('status', 255).notNullable();
+       table.string('status', 255).defaultTo('active').notNullable();
        table.timestamp('created_at').defaultTo(knex.fn.now());
        table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
