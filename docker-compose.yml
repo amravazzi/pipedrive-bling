@@ -1,41 +1,37 @@
 version: '2.1'
 
 networks:
-  cheapestpath: {}
+  pipebling: {}
 
 services:
-  db:
+  database:
     container_name: database
-    image: mysql:5.7
     networks:
-      - cheapestpath
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-    entrypoint: sh -c 'echo "CREATE DATABASE IF NOT EXISTS cheapestpath; CREATE DATABASE IF NOT EXISTS cheapestpath_test;" > /docker-entrypoint-initdb.d/init.sql; /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci'
+    - pipebling
+    image: mongo
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+    - 27018:27017
+    environment:
+      MONGO_INITDB_ROOT_DATABASE: pipebling
+    command: mongod --smallfiles --logpath=/dev/null
 
   node:
     restart: always
     depends_on:
-      - db
+      - database
     networks:
-      - cheapestpath
+      - pipebling
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ./:/srv/app
     environment:
-      NODE_ENV: dev
-      DB_DATABASE: cheapestpath
-      DB_DATABASE_TEST: cheapestpath_test
-      DB_HOST: database
-      DB_PORT: 3306
-      DB_USERNAME: root
-      DB_PASSWORD: ''
+      DSN: 'mongodb://database:27017/pipebling'
+      BLING_KEY: 6380df6792789acdfc8e5d22309c9b551be816ac06f9aca926ee4207309e16b8fb55fba4
+      PIPEDRIVE_KEY: 36ab53f24ef5c2f383c03a2c9a9deeb7c3d4f212
+      PIPEDRIVE_DOMAIN: amravazzi
     ports:
       - '8099:8080'
-    command: sh -c "yarn && yarn migrate_up && yarn dev"
+    # command: sh -c "yarn && yarn migrate_up && yarn dev"
+    command: sh -c "yarn && yarn dev"
