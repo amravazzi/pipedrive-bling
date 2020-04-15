@@ -28,3 +28,4 @@ As this is a simple demonstration of an integration, all data stored is deleted 
 ## TODO
 - API authentication
 - Persist data after docker is stopped
+- Convert Pipedrive response to Bling's XML
