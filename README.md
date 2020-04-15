@@ -18,9 +18,9 @@ A dockerized Node.js project that integrates Pipedrive with Bling. If a deal has
 
 ## Available endpoints
 
-`GET /v1/orders`: will bring the orders created in Bling from won deals in Pipedrive
+`GET /v1/deals`: will bring the deals won in Pipedrive that reflect an order in Bling.
 
-`GET /v1/consolidate`: will run the integration, looking for won deals in Pipedrive and creating orders in Bling
+`GET /v1/consolidate`: will run the integration, looking for won deals in Pipedrive and creating orders in Bling.
 
 ## Notice
 As this is a simple demonstration of an integration, all data stored is deleted when the docker is stopped.
