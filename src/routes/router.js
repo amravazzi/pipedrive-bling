@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import QuoteController from '../controllers/QuoteController';
-import QuoteValidation from '../middlewares/validators/QuoteValidation';
+import DealController from '../controllers/DealController';
+import DealValidation from '../middlewares/validators/DealValidation';
 import CreateQuoteValidation from '../middlewares/validators/CreateQuoteValidation';
 
 const router = Router();
-const quoteController = new QuoteController();
-const quoteValidation = new QuoteValidation();
+const dealController = new DealController();
+const dealValidation = new DealValidation();
 const createQuoteValidation = new CreateQuoteValidation();
 
-router.get('/quote/:from/:to', quoteValidation.validate, quoteController.quote);
-router.post('/quote', createQuoteValidation.validate, quoteController.create);
+router.get('/deals', dealController.index);
+router.get('/consolidate', dealController.consolidate);
 
 export default router;
