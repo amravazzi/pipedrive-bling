@@ -28,7 +28,7 @@ services:
       - ./:/srv/app
     environment:
       DSN: 'mongodb://database:27017/pipebling'
-      BLING_KEY: 6380df6792789acdfc8e5d22309c9b551be816ac06f9aca926ee4207309e16b8fb55fba4
+      BLING_KEY: e4fb4941052f7315efa6470800a026ca06677bdfde554af130e008a255d5bc2696f6a0ec
       PIPEDRIVE_KEY: 36ab53f24ef5c2f383c03a2c9a9deeb7c3d4f212
       PIPEDRIVE_DOMAIN: amravazzi
     ports:

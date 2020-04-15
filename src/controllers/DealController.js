@@ -1,6 +1,7 @@
 import Quote from '../models/Model';
 import Deal from '../models/Deal';
 import Pipedrive from '../services/Pipedrive'
+import Bling from '../services/Bling'
 
 class DealController {
 	constructor() { }
@@ -28,7 +29,10 @@ class DealController {
               // res.status(200).json(result)
             })
             .catch(error => {
-              res.status(500).json(error)
+              console.log(error);
+              const d = new DealController();
+              let r = d.index(req, res);
+              // res.status(500).json(error)
             });
         });
       })
