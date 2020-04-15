@@ -12,9 +12,7 @@ class Bling {
     return new Promise((resolve, reject) => {
       axios.post(this._baseURL, this._payload)
      .then(response => {
-        console.log(response.data);
-
-        // resolve(final);
+        resolve(response.data);
       })
       .catch(error => {
         console.log(error);
