@@ -33,5 +33,4 @@ services:
       PIPEDRIVE_DOMAIN: amravazzi
     ports:
       - '8099:8080'
-    # command: sh -c "yarn && yarn migrate_up && yarn dev"
     command: sh -c "yarn && yarn dev"

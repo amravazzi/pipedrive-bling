@@ -19,10 +19,11 @@
   },
   "homepage": "https://github.com/amravazzi/cheapest-path#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "got": "^10.7.0",
+    "https": "^1.0.0",
     "mongoose": "^5.9.9",
     "nodemon": "^2.0.2",
     "validatorjs": "^3.18.1"
